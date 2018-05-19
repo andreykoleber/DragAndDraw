@@ -23,9 +23,12 @@ public class BoxDrawingView extends View {
 
     //Используется при создании представления в коде
     public BoxDrawingView(Context context) {
-        super(context, null);
+        this(context, null);
+    }
 
-        //Прямоугольники рисуются полупрозрачными красным цветом (ARGB)
+    //Используется при заполнении представления по разметке XML
+    public BoxDrawingView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         mBoxPaint = new Paint();
         mBoxPaint.setColor(0x22ff0000);
 
@@ -33,7 +36,6 @@ public class BoxDrawingView extends View {
         mBackgroundPaint = new Paint();
         mBackgroundPaint.setColor(0xfff8efe0);
     }
-
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -64,7 +66,6 @@ public class BoxDrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         canvas.drawPaint(mBackgroundPaint);
         for (Box box : mBoxen) {
             float left = Math.min(box.getOrigin().x, box.getCurrent().x);
@@ -73,11 +74,6 @@ public class BoxDrawingView extends View {
             float bottom = Math.max(box.getOrigin().y, box.getCurrent().y);
             canvas.drawRect(left, top, right, bottom, mBoxPaint);
         }
-    }
-
-    //Используется при заполнении представления по разметке XML
-    public BoxDrawingView(Context context, AttributeSet attrs) {
-        super(context, attrs);
     }
 
 }
